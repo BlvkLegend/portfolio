@@ -123,10 +123,7 @@ section{position:relative;z-index:2;background:var(--bg)!important}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'Space Mono',monospace!important;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)!important;border:1.5px solid rgba(0,170,255,0.25)!important;padding:7px 15px;border-radius:2px;margin-bottom:28px;background:rgba(0,170,255,0.04)!important}
 .dot-avail{width:7px;height:7px;background:var(--green)!important;border-radius:50%;flex-shrink:0;animation:pulse-dot 2s ease-in-out infinite;box-shadow:0 0 8px var(--green)}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
-.hero-title{font-family:'Syne',sans-serif!important;font-weight:800!important;font-size:clamp(3rem,4.0vw,5.2rem);line-height:1.0;letter-spacing:-.035em;color:var(--text)!important;margin-bottom:0;
-  /* FIX: reserve layout height so chars don't cause vertical shift */
-  min-height:5.4em;
-}
+.hero-title{font-family:'Syne',sans-serif!important;font-weight:800!important;font-size:clamp(3rem,4.0vw,5.2rem);line-height:1.0;letter-spacing:-.035em;color:var(--text)!important;margin-bottom:0}
 .hero-title .line{display:block;overflow:visible;line-height:1.06}
 .hero-title .t-blue{color:var(--blue)!important}
 .hero-title .t-dim{color:var(--dim)!important;font-size:.52em;letter-spacing:.02em}
@@ -824,18 +821,20 @@ function randomGlyph(){return GLYPHS[Math.floor(Math.random()*GLYPHS.length)];}
 function buildCodeReveal(){
   var title=document.getElementById('heroTitle');
   if(!title)return;
-  /* FIX: instead of rebuilding innerHTML and changing layout,
-     we pre-size each line span and swap characters in-place.
-     Each char gets a fixed width via inline-block so the container
-     never changes height during scramble. */
+  /* Measure the natural rendered height of the title BEFORE touching
+     innerHTML so we can pin it and prevent vertical layout shifts. */
+  var naturalH=title.offsetHeight;
+  if(naturalH>0){
+    title.style.height=naturalH+'px';
+    title.style.overflow='hidden';
+  }
+  /* Build char spans — no min-width so natural font kerning is preserved */
   title.querySelectorAll('[data-reveal]').forEach(function(line){
     var text=line.getAttribute('data-reveal');
     var html='';
     for(var i=0;i<text.length;i++){
       var ch=text[i];
-      /* Use a monospace span with explicit min-width so glyph swap
-         doesn't shift layout */
-      html+='<span class="char" data-final="'+encodeURIComponent(ch)+'" style="min-width:.62em;display:inline-block">'
+      html+='<span class="char" data-final="'+encodeURIComponent(ch)+'">'
            +(ch===' '?'\u00a0':randomGlyph())+'</span>';
     }
     line.innerHTML=html;
@@ -844,14 +843,27 @@ function buildCodeReveal(){
 
 function runCodeReveal(){
   var chars=Array.from(document.querySelectorAll('#heroTitle .char'));
+  var title=document.getElementById('heroTitle');
+  var totalChars=chars.length;
+  var resolved=0;
   chars.forEach(function(c,i){
     var finalChar=decodeURIComponent(c.dataset.final);
-    var startAt=i*(1200*0.5)/Math.max(chars.length,1);
-    if(finalChar===' '||finalChar==='\u00a0'){c.textContent='\u00a0';return;}
+    var startAt=i*(1200*0.5)/Math.max(totalChars,1);
+    if(finalChar===' '||finalChar==='\u00a0'){c.textContent='\u00a0';resolved++;return;}
     var t;
     setTimeout(function(){
       t=setInterval(function(){c.textContent=randomGlyph();},52);
-      setTimeout(function(){clearInterval(t);c.textContent=finalChar;c.classList.add('resolved');},520);
+      setTimeout(function(){
+        clearInterval(t);
+        c.textContent=finalChar;
+        c.classList.add('resolved');
+        resolved++;
+        /* Once every char is done, release the height lock */
+        if(resolved>=totalChars&&title){
+          title.style.height='';
+          title.style.overflow='';
+        }
+      },520);
     },startAt);
   });
 }
@@ -884,6 +896,9 @@ function heroEntrance(){
   }
 }
 
+/* Run buildCodeReveal first while title is opacity:0 — this measures
+   the Syne font's natural height and locks it before any glyph swaps.
+   heroEntrance then fades everything in. */
 buildCodeReveal();
 heroEntrance();
 renderProjects();
