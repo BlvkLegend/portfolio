@@ -653,35 +653,31 @@ input,select,textarea,button{color-scheme:dark;background-color:transparent}
 /* ── PROJECTS DATA ── */
 const IMG='image/';
 
-const projects=[
+const devProjects=[
   {
     id:'fleetal-admin',
     title:'Fleetal Admin Dashboard',
     desc:'React admin dashboard for logistics operations. Manages deliveries, drivers, fleet, customers, and analytics with role-based access control and a seeded data mode.',
     thumb:IMG+'FleetalA.webp',
-    tags:[{l:'Web App',t:'tag-dev'},{l:'Personal',t:'tag-personal'}],
-    stack:['React 19','Vite','Tailwind CSS','Zustand','React Query','Recharts','React Router','localStorage'],
+    tags:[{l:'Web App',t:'tag-dev'},{l:'Logistics',t:'tag-design'}],
+    stack:['React 19','Vite','Tailwind CSS','Zustand','React Query','Recharts'],
     featured:true,
     type:'webapp',
     isPersonal:true,
-    overview:'A personal project — a full-featured logistics operations dashboard built with React 19, Vite, and Tailwind CSS. The application manages deliveries, drivers, a vehicle fleet, customers, and analytics across seven page routes.',
-    role:'Sole developer. Architected the component structure, data layer, state management, and UI from scratch.',
+    overview:'A personal project: a full-featured logistics operations dashboard covering deliveries, drivers, fleet, customers, and analytics across seven page routes.',
+    role:'Sole developer. Architected the component structure, data layer, state management, and UI.',
     built:[
       'Seven routed pages: Dashboard, Deliveries, Drivers, Fleet, Customers, Analytics, Settings',
-      'Zustand store for global UI state including theme (light/dark), sidebar visibility, role switching, and workspace mode',
-      'Role-based access control: Admin, Dispatcher, Driver, and Viewer roles — the driver role hides restricted sidebar items and filters the Deliveries list to only the simulated driver session',
-      'A localStorage services layer (deliveryService, driverService, vehicleService, customerService, analyticsService) with async CRUD operations that simulate real API latency',
-      'Seeded workspace mode that populates all entities with deterministic, realistic Lagos logistics data on first load; an empty mode for fresh data entry',
-      'Recharts integration: area charts, bar charts, pie/donut charts, and line charts on both Dashboard and Analytics pages, each with a custom tooltip component',
-      'Command palette (Ctrl/Cmd+K) with keyboard navigation for navigating pages and triggering actions',
-      'Toast notification system with info, success, and error variants via a useNotify hook',
-      'A WorkspaceBanner component for switching between seeded and empty modes with React Query cache invalidation',
-      'Responsive sidebar with collapsible desktop state and mobile overlay, active route highlighting',
-      'GitHub Actions CI/CD workflow for automatic deployment to GitHub Pages'
+      'Role-based access control (Admin, Dispatcher, Driver, Viewer) with role-filtered navigation and data views',
+      'A services layer with async CRUD operations simulating real API latency, structured for straightforward API integration later',
+      'A seeded workspace mode with realistic Lagos logistics data, plus an empty mode for fresh data entry',
+      'Data visualization via Recharts: area, bar, pie, and line charts on the Dashboard and Analytics pages',
+      'A command palette (Ctrl/Cmd+K) for keyboard navigation, plus a toast notification system',
+      'Automated deployment pipeline to GitHub Pages'
     ],
-    stack_detail:'React 19, Vite, Tailwind CSS, Zustand with persist middleware, TanStack React Query v5, Recharts, React Router v7, date-fns, lucide-react, clsx, tailwind-merge',
-    challenges:'Designing a service abstraction layer that mirrors real API patterns (async, role-filtered, paginated) while using only localStorage required careful structuring so future API integration would require minimal refactoring. Implementing deterministic seed data ensured consistent visual output across fresh loads.',
-    outcome:'A production-architecture demo application demonstrating React component design, state management patterns, data visualization, and role-based UI logic, all observable through the live deployment.',
+    stack_detail:'React 19, Vite, Tailwind CSS, Zustand, TanStack React Query, Recharts, React Router, date-fns, lucide-react',
+    challenges:'Designing a service layer that mirrors real API patterns (async, role-filtered) while running entirely client-side required structuring the code so a future backend swap-in would need minimal rework. Getting the seeded data deterministic so the dashboard looks the same on every fresh load took some care.',
+    outcome:'A working demo application showing React component design, state management, data visualization, and role-based UI logic end to end.',
     link:'https://blvklegend.github.io/Fleetal/',
     github:'https://github.com/BlvkLegend/Fleetal'
   },
@@ -691,166 +687,165 @@ const projects=[
     desc:'Civic accountability platform built in Next.js 15. Citizens evaluate elected officials across ten performance categories. Dual interface modes: formal Taxpayer and colloquial Agbado-Cruise.',
     thumb:IMG+'NGSC.webp',
     tags:[{l:'Web App',t:'tag-dev'},{l:'Civic Tech',t:'tag-design'}],
-    stack:['Next.js 15','TypeScript','Tailwind CSS v4','Framer Motion','html2canvas-pro'],
+    stack:['Next.js 15','TypeScript','Tailwind CSS v4','Framer Motion'],
     featured:false,
     type:'webapp',
     isPersonal:false,
-    overview:'A statically exported Next.js 15 application built around a civic accountability concept. The platform allows users to evaluate Nigerian elected officials across ten scored performance categories, compare officials side by side, browse rankings, and view community sentiment.',
-    role:'Sole developer. Designed the data architecture, built all page routes and components, and configured the GitHub Actions deployment pipeline for GitHub Pages static export.',
+    overview:'A statically exported Next.js 15 application for evaluating Nigerian elected officials across ten scored performance categories, comparing officials side by side, and browsing rankings and community sentiment.',
+    role:'Sole developer. Designed the data architecture, built all page routes and components, and configured the deployment pipeline.',
     built:[
-      'Six App Router routes: Home (landing), Leaders (discovery), Compare (side-by-side), Rankings, About, Settings',
-      'A ModeProvider context that switches the entire application between Taxpayer mode (light, serif-driven, formal language) and Agbado-Cruise mode (dark, accent-shifted, street-slang microcopy) via a single PersonaToggle',
-      'A typed Leader data structure with slug, role, jurisdiction, party, score, evaluation count, trend direction, and ten category scores per official',
-      'Leaders page with a LeadersUnified component supporting both list-style (Taxpayer) and image-grid (Agbado-Cruise) layouts from the same underlying data',
-      'Side-by-side comparison view that adapts language and labels by active mode',
-      'Rankings page presenting sorted official scores',
-      'AdOverlay and DonationSection components reflecting the platform\'s community-funding concept',
-      'LeaderboardWidget rendered globally via the root layout',
-      'html2canvas-pro integration for shareable scorecard generation',
-      'Framer Motion animations for page transitions and UI elements',
-      'Self-hosted Fraunces, Inter, and IBM Plex Mono fonts via @fontsource packages',
-      'Tailwind CSS v4 with custom design tokens for both mode themes',
-      'GitHub Actions workflow: builds and exports to GitHub Pages on push to main'
+      'Six routes: Home, Leaders (discovery), Compare (side-by-side), Rankings, About, Settings',
+      'A mode system that switches the entire app between a formal "Taxpayer" register and a colloquial "Agbado-Cruise" register, sharing the same underlying data',
+      'A typed data model for officials covering jurisdiction, party, score, evaluation count, trend, and ten category scores',
+      'Side-by-side comparison view and a rankings page',
+      'Shareable scorecard generation via html2canvas-pro',
+      'Framer Motion transitions across pages and UI elements'
     ],
-    stack_detail:'Next.js 15 (App Router, static export), TypeScript, Tailwind CSS v4, Framer Motion, html2canvas-pro, lucide-react, @fontsource-variable/fraunces, @fontsource-variable/inter, @fontsource/ibm-plex-mono',
-    challenges:'The dual-mode system required every component to read from mode context and respond with different copy, colour, and layout logic without duplicating page routes. The static export constraint (no server functions) meant all data relationships were modelled as typed TypeScript objects and resolved at build time.',
-    outcome:'A complete frontend implementation with a dual-mode interface, typed data layer, and CI/CD pipeline. Backend concepts (Supabase tables, aggregation queries, server-side pulse analytics) are represented as structured mocks designed for straightforward API integration.',
+    stack_detail:'Next.js 15 (App Router, static export), TypeScript, Tailwind CSS v4, Framer Motion, html2canvas-pro',
+    challenges:'The dual-mode system required every component to read from a shared context and respond with different copy, color, and layout without duplicating routes. The static export constraint meant all data relationships had to be modeled as typed objects resolved at build time rather than fetched server-side.',
+    outcome:'A complete frontend implementation with a dual-mode interface, a typed data layer, and an automated deployment pipeline. Backend concepts are represented as structured, typed mocks designed for straightforward API integration.',
     link:'https://blvklegend.github.io/NGSC/',
     github:'https://github.com/BlvkLegend/NGSC'
   },
   {
-    id:'eezee-watch',
-    title:'Eezee Watch Security Solutions Website',
-    desc:'Multi-page website for a Lagos security company. Custom HTML, CSS, and JavaScript. Covers homepage, services, about, and contact with IntersectionObserver-driven scroll reveals.',
-    thumb:IMG+'EezeeGuard1.webp',
-    tags:[{l:'Multi-page Site',t:'tag-dev'},{l:'Client Work',t:'tag-design'}],
-    stack:['HTML5','CSS3','JavaScript','IntersectionObserver API'],
-    featured:false,
-    type:'multipage',
-    isPersonal:false,
-    overview:'A multi-page business website for Eezee Watch Security Solutions Ltd., a Lagos-based security company. The site covers four pages: Homepage, Services, About, and Contact, all sharing a common navigation and footer.',
-    role:'Sole developer. Wrote all HTML, CSS, and JavaScript from scratch with no frontend framework or CSS library.',
-    built:[
-      'Four separate HTML pages (index, services, about, contact) with a shared visual system',
-      'Vanilla JavaScript for scroll-triggered nav state (scrolled class toggled via window.addEventListener), active link detection based on window.location.pathname, and hamburger/mobile menu open-close logic',
-      'IntersectionObserver-based scroll reveal system: elements carrying the .reveal class are observed; once intersecting, they receive .visible and are unobserved',
-      'Animated ticker/marquee that duplicates its inner HTML for seamless looping',
-      'Responsive navigation with a hamburger toggle and a full-screen mobile overlay',
-      'Services preview section, why-us section, readiness/process section, partner logos section, and CTA banner',
-      '1,055 lines of hand-written CSS covering layout, typography, component variants, and responsive breakpoints',
-      'Custom JavaScript main.js shared across all pages (no jQuery, no framework)'
-    ],
-    stack_detail:'HTML5, CSS3, Vanilla JavaScript ES6+, IntersectionObserver API',
-    challenges:'Maintaining visual consistency across four separate HTML files without a component system required a disciplined approach to the CSS architecture. The IntersectionObserver-based reveal needed to accommodate different element directions (translate-Y, translate-X) without a library.',
-    outcome:'A live multi-page site with consistent design language across all pages, smooth scroll animations, and a responsive layout that functions correctly from mobile to wide desktop.',
-    link:'https://blvklegend.github.io/EezeeGuard/',
-    github:'https://github.com/BlvkLegend/EezeeGuard'
-  },
-  {
     id:'eezee-transit-web',
     title:'Eezee Transit Website',
-    desc:'Multi-page website for a Nigerian logistics and transport company. Shared nav and footer injected via a JavaScript module. Four pages covering home, services, about, and contact.',
+    desc:'Four-page marketing website for a Nigerian logistics and transport company. Originally built and deployed on WordPress; this build reflects the current implementation.',
     thumb:IMG+'EEzee_transit_Redesign.webp',
-    tags:[{l:'Multi-page Site',t:'tag-dev'},{l:'Client Work',t:'tag-design'}],
-    stack:['HTML5','CSS3','JavaScript'],
+    tags:[{l:'Multi-page Site',t:'tag-dev'},{l:'Logistics',t:'tag-design'}],
+    stack:['WordPress','HTML5','CSS3','JavaScript'],
     featured:false,
     type:'multipage',
     isPersonal:false,
-    overview:'A multi-page marketing website for Eezee Transit, a Nigerian logistics, courier, and vehicle rental company. Four pages: Home, Services, About, and Contact.',
-    role:'Sole developer. Wrote all markup, styles, and JavaScript. Designed the page structure and content hierarchy.',
+    overview:'A four-page marketing website for Eezee Transit, a Nigerian logistics, courier, and vehicle rental company, covering Home, Services, About, and Contact.',
+    role:'Developer. Structured the page hierarchy, content flow, and shared navigation system across all four pages.',
     built:[
-      'Four HTML pages sharing a consistent visual system: index, services, about, contact',
-      'A shared JavaScript module (shared.js) that injects nav and footer HTML into every page, handles scroll-based nav state, hamburger toggle, IntersectionObserver scroll reveal, modal/FAQ behavior, and a WhatsApp float button',
-      'Programmatic active link highlighting: shared.js reads window.location.pathname and applies .active to the matching nav link on each page load',
-      'Homepage sections: hero, services overview (four-step process), standards/differentiators, social proof (client testimonials), and a 30-minute quote CTA',
-      'Custom CSS without any framework: 332 lines covering layout, nav variants (clear on home, solid on inner pages), section alternates, and responsive breakpoints',
-      'WhatsApp integration: a floating action button with a pre-composed inquiry message deeplinks to WhatsApp via wa.me'
+      'Four pages sharing a consistent navigation and footer system',
+      'Programmatic active-link highlighting and a two-state nav (transparent on the homepage, solid on inner pages)',
+      'Homepage sections: hero, four-step services overview, differentiators, client testimonials, and a quote-request CTA',
+      'IntersectionObserver-based scroll reveal animations across all pages',
+      'A WhatsApp float button deep-linking to a pre-composed enquiry message'
     ],
-    stack_detail:'HTML5, CSS3, Vanilla JavaScript ES6+, IntersectionObserver API',
-    challenges:'Sharing nav and footer across separate HTML files without a build tool required injecting them via JavaScript after DOMContentLoaded. The nav had two visual states (transparent on the homepage, solid on inner pages) that needed to be distinguished via a class on the nav element set by shared.js.',
-    outcome:'A live multi-page site with a unified navigation system, consistent content hierarchy, and a working WhatsApp lead capture flow.',
+    stack_detail:'WordPress (original build), HTML5, CSS3, JavaScript, IntersectionObserver API',
+    challenges:'The site needed two distinct navigation states depending on the page while sharing one visual system, and a WhatsApp-first enquiry flow that matched how the client\'s customers actually reach out.',
+    outcome:'A live multi-page site with unified navigation, a clear content hierarchy, and a working WhatsApp lead capture flow.',
     link:'https://blvklegend.github.io/EezeeTransit/',
     github:'https://github.com/BlvkLegend/EezeeTransit'
   },
   {
+    id:'eezee-watch',
+    title:'Eezee Watch Security Solutions Website',
+    desc:'Four-page website for a Lagos security company. Originally built and deployed on WordPress; this build reflects the current implementation.',
+    thumb:IMG+'EezeeGuard1.webp',
+    tags:[{l:'Multi-page Site',t:'tag-dev'},{l:'Security',t:'tag-design'}],
+    stack:['WordPress','HTML5','CSS3','JavaScript'],
+    featured:false,
+    type:'multipage',
+    isPersonal:false,
+    overview:'A four-page business website for Eezee Watch Security Solutions Ltd., a Lagos-based security company, covering Home, Services, About, and Contact.',
+    role:'Developer. Structured the page hierarchy and shared visual system across all four pages.',
+    built:[
+      'Four pages with a shared navigation and footer system',
+      'IntersectionObserver-based scroll reveal system across sections',
+      'An animated ticker/marquee and a responsive mobile navigation overlay',
+      'Services preview, why-us, process, and partner logo sections, plus a CTA banner'
+    ],
+    stack_detail:'WordPress (original build), HTML5, CSS3, JavaScript, IntersectionObserver API',
+    challenges:'Keeping visual consistency across four separate pages without a component system meant establishing a strict CSS pattern up front so new sections would not drift from the established style.',
+    outcome:'A live multi-page site with consistent design language across all pages and a responsive layout from mobile to wide desktop.',
+    link:'https://blvklegend.github.io/EezeeGuard/',
+    github:'https://github.com/BlvkLegend/EezeeGuard'
+  },
+  {
     id:'zeecakes-web',
     title:'Zeecakes Business Website',
-    desc:'Multi-page website for a Lagos bakery. Five pages with custom SVG icons, a stat counter animation, an FAQ accordion, and SEO markup including a sitemap and robots.txt.',
+    desc:'Five-page website for a Lagos bakery, with a three-year maintenance history covering seasonal campaigns and catalog growth.',
     thumb:IMG+'Zeecakes Websitte.webp',
-    tags:[{l:'Multi-page Site',t:'tag-dev'},{l:'Client Work',t:'tag-design'}],
+    tags:[{l:'Multi-page Site',t:'tag-dev'},{l:'Bakery',t:'tag-design'}],
     stack:['HTML5','CSS3','JavaScript','Wix','WordPress'],
     featured:false,
     type:'multipage',
     isPersonal:false,
-    overview:'A multi-page business website for ZeeCakes, a custom cake and pastry business in Ejigbo, Lagos. Five pages: Homepage, Products, About, Classes, and Contact.',
-    role:'Sole developer and designer across a three-year engagement covering the initial build and all subsequent updates, seasonal campaigns, and content revisions.',
+    overview:'A five-page business website for ZeeCakes, a custom cake and pastry business in Ejigbo, Lagos, covering Home, Products, About, Classes, and Contact.',
+    role:'Developer and designer across a three-year engagement covering the initial build and all subsequent updates and campaigns.',
     built:[
-      'Five HTML pages: index, products, about, classes, contact, each sharing a common header and footer',
-      'A full custom SVG icon set (basket, brownie, cake-pop, cake-slice, chin-chin, cupcakes, desserts, meat-pie, pastries, puff-puff, sausage-roll, scotch-egg, small-chops, whisk, and others) created for the bakery product catalog',
-      'Vanilla JavaScript (216 lines): mobile nav toggle with aria-expanded state, IntersectionObserver scroll reveal, animated stat counters with easing (requestAnimationFrame, cubic ease-out), and an FAQ accordion that closes siblings on open',
-      '720 lines of hand-written CSS covering layout, responsive breakpoints, typography, component states, and section alternates',
-      'SEO structure: semantic HTML, a sitemap.xml, and a robots.txt',
-      'Classes page describing baking instruction offerings',
-      'Products page presenting the bakery catalog organized by category',
-      'Three-year maintenance: ongoing content updates, promotional sections, seasonal changes'
+      'Five pages sharing a common header and footer',
+      'A custom SVG icon set built specifically for the bakery\'s product catalog',
+      'Animated stat counters, an FAQ accordion, and scroll reveal animations',
+      'A sitemap and semantic SEO structure supporting local search visibility',
+      'Three years of ongoing content updates, seasonal sections, and catalog growth'
     ],
-    stack_detail:'HTML5, CSS3, Vanilla JavaScript ES6+, IntersectionObserver API, requestAnimationFrame, Wix (legacy), WordPress (updated deployment)',
-    challenges:'Maintaining visual and content consistency over a three-year engagement as the product catalog grew required a disciplined CSS architecture that could accommodate new sections without breaking existing layouts. Creating a custom SVG icon set specific to the bakery product range avoided reliance on generic icon libraries.',
-    outcome:'An active business website that has served as ZeeCakes\'s primary digital presence for three years, supporting customer inquiries, product discovery, and promotional campaigns.',
+    stack_detail:'HTML5, CSS3, JavaScript, IntersectionObserver API, Wix (legacy), WordPress (later deployment)',
+    challenges:'Keeping visual and content consistency as the product catalog grew over three years required a CSS structure that could absorb new sections without breaking existing layout.',
+    outcome:'An active business website that has served as ZeeCakes\'s primary digital presence for three years, supporting customer enquiries, product discovery, and promotions.',
     link:'https://blvklegend.github.io/Zeecakes/',
     github:'https://github.com/BlvkLegend/Zeecakes'
   },
   {
+    id:'fleetal-site',
+    title:'Fleetal Marketing Website',
+    desc:'Marketing site for the Fleetal fleet management product, aimed at enterprise decision-makers rather than day-to-day dashboard users.',
+    thumb:IMG+'Fleetal.webp',
+    tags:[{l:'Landing Page',t:'tag-dev'},{l:'Logistics',t:'tag-design'}],
+    stack:['Wix','HTML5','CSS3','JavaScript'],
+    featured:false,
+    type:'landing',
+    isPersonal:true,
+    overview:'A personal project: the marketing-facing counterpart to the Fleetal Admin Dashboard, aimed at enterprise buyers evaluating the product rather than the operators who would use it day to day.',
+    role:'Sole developer.',
+    built:[
+      'A service-focused marketing page covering fleet tracking, maintenance scheduling, and operational management',
+      'Dashboard-style previews inside the marketing page so prospective buyers can see the product\'s data density before requesting a demo'
+    ],
+    stack_detail:'Wix, HTML5, CSS3, JavaScript',
+    challenges:'Writing marketing copy for a decision-maker audience rather than the operational audience the dashboard itself targets meant a different tone and set of priorities from the admin product.',
+    outcome:'A live marketing page pairing with the Fleetal Admin Dashboard to present the product to a buyer audience.',
+    link:'https://alobaiyunade.wixsite.com/fleetal'
+  },
+  {
     id:'abokee-wings',
     title:'Abokee Wings Travel Agency Website',
-    desc:'Multi-page website for a licensed Abuja travel agency. Six pages with custom typography pairing (Cormorant Garamond and Outfit), scroll reveal animations, and a mobile-first responsive layout.',
+    desc:'Six-page website for a licensed Abuja travel agency, with a deliberate typography pairing to signal a premium, credible brand.',
     thumb:IMG+'Abokee Wings.webp',
-    tags:[{l:'Multi-page Site',t:'tag-dev'},{l:'Client Work',t:'tag-design'}],
+    tags:[{l:'Multi-page Site',t:'tag-dev'},{l:'Travel',t:'tag-design'}],
     stack:['HTML5','CSS3','JavaScript'],
     featured:false,
     type:'multipage',
     isPersonal:false,
-    overview:'A multi-page website for Abokee Wings, a fully licensed travel and tour agency based in Abuja. Six pages: Home, About, Services, Destinations, Blog, and Contact.',
-    role:'Sole developer. Wrote all HTML, CSS, and JavaScript. Made all typography and layout decisions.',
+    overview:'A six-page website for Abokee Wings, a licensed travel and tour agency based in Abuja, covering Home, About, Services, Destinations, Blog, and Contact.',
+    role:'Developer. Made the typography and layout decisions across all six pages.',
     built:[
-      'Six HTML pages: index, about-us, services, destinations, blog, contact-us',
-      'Typography system: Cormorant Garamond (display, headings) paired with Outfit (body, UI) — chosen to convey premium positioning appropriate for a travel agency',
-      'Vanilla JavaScript: scroll-triggered nav state (scrolled class), IntersectionObserver-based .reveal system with delay variants (.reveal-delay-1 through .reveal-delay-4)',
-      'Homepage sections: hero with scroll indicator animation, about preview, services overview, destination highlights with stats, testimonials, and CTA',
-      'Scroll indicator: an animated vertical line with a keyframe-driven pulse that fades in and out continuously',
-      'Footer with three columns: Quick Links, Services, and Contact Info',
-      'Responsive navigation including a mobile-optimized layout'
+      'Six pages: Home, About, Services, Destinations, Blog, Contact',
+      'A typography pairing (a display serif with a clean sans body face) chosen to convey premium positioning',
+      'Staggered scroll reveal animations and an animated scroll indicator on the homepage hero',
+      'A three-column footer covering quick links, services, and contact info'
     ],
-    stack_detail:'HTML5, CSS3, Vanilla JavaScript ES6+, Google Fonts (Cormorant Garamond, Outfit), IntersectionObserver API',
-    challenges:'A travel agency site needs to convey credibility and aspiration simultaneously. The Cormorant Garamond and Outfit pairing was a deliberate typographic decision to achieve this without relying on imagery alone. Staggered reveal delays on section content created a sense of paced, considered presentation rather than a sudden appearance of all elements.',
-    outcome:'A live six-page site representing Abokee Wings with a distinct typographic identity and structured content across all service areas.',
+    stack_detail:'HTML5, CSS3, JavaScript, Google Fonts, IntersectionObserver API',
+    challenges:'A travel agency site needs to read as both credible and aspirational at once. The typography pairing was a deliberate decision to achieve that without relying on imagery alone.',
+    outcome:'A live six-page site with a distinct typographic identity and structured content across all service areas.',
     link:'https://blvklegend.github.io/AbokeeWings/index.html',
     github:'https://github.com/BlvkLegend/AbokeeWings'
   },
   {
     id:'fa-designs',
     title:'F.A Designs Landing Page',
-    desc:'Single-page Meta ad landing page for a fabric beading course business. WhatsApp-based conversion flow. All CTAs route to a WhatsApp catalog for masterclass applications and free class access.',
+    desc:'Single-page Meta ad landing page for a fabric beading course business. WhatsApp-based conversion flow for masterclass applications and free class access.',
     thumb:IMG+'FADesigns1.webp',
-    tags:[{l:'Landing Page',t:'tag-dev'},{l:'Client Work',t:'tag-design'}],
+    tags:[{l:'Landing Page',t:'tag-dev'},{l:'Education',t:'tag-design'}],
     stack:['HTML5','CSS3','JavaScript'],
     featured:false,
     type:'landing',
     isPersonal:false,
-    overview:'A single-page landing site for F.A Designs, a fabric beading tutorial business based in Lagos. The page targets traffic arriving from Meta (Facebook/Instagram) ad campaigns and is built around WhatsApp as the conversion channel.',
-    role:'Sole developer. Designed and built the page structure, conversion flow, and all responsive styling.',
+    overview:'A single-page landing site for F.A Designs, a fabric beading tutorial business in Lagos, built for traffic arriving from Meta ad campaigns.',
+    role:'Developer. Designed the page structure and conversion flow.',
     built:[
-      'Single HTML page with seven content sections: hero, course value proposition, course listing (Free Intro and Masterclass), student reviews, free class CTA, founder story, and contact',
-      'WhatsApp conversion flow: all primary CTAs link directly to a WhatsApp catalog (wa.me/c/...) for masterclass applications and free class access, eliminating form friction',
-      'Hero headline focused on skill and income outcomes, matched to the audience arriving from video ads',
-      'Two-course structure: Free Intro Class (low barrier entry) and a two-week Masterclass (paid enrolment)',
-      'Reviews section: student testimonials providing social proof for the offer',
-      'Founder story section establishing credibility and personal backstory',
-      'Mobile-first responsive layout optimized for the majority of paid social traffic arriving on mobile devices',
-      'Smooth scroll navigation and lightweight JavaScript for the mobile nav toggle'
+      'A single page with hero, course value proposition, course listing, reviews, free class CTA, founder story, and contact',
+      'A WhatsApp-based conversion flow: all primary CTAs link to a WhatsApp catalog rather than a form',
+      'A two-course structure (a low-barrier free intro class and a paid masterclass)',
+      'A mobile-first responsive layout matched to how paid social traffic actually arrives'
     ],
-    stack_detail:'HTML5, CSS3, Vanilla JavaScript ES6+',
-    challenges:'Paid social landing pages have a narrow job: convert the visitor before they leave. Every section was sequenced to address a specific objection in order: what is it, does it work (reviews), is the barrier low enough (free class), and who is behind it (founder). All CTAs lead to WhatsApp rather than a form because the client\'s existing sales flow is WhatsApp-native.',
+    stack_detail:'HTML5, CSS3, JavaScript',
+    challenges:'Paid social landing pages have one job: convert before the visitor leaves. Sections were sequenced to answer objections in order (what is it, does it work, how low is the barrier to try it, who is behind it), with every CTA routed to WhatsApp since that is the client\'s existing sales channel.',
     outcome:'A live landing page supporting the client\'s Meta ad campaigns with a conversion flow matched to their WhatsApp-based enrolment process.',
     link:'https://blvklegend.github.io/FA-Designs/',
     github:'https://github.com/BlvkLegend/FA-Designs'
@@ -858,79 +853,29 @@ const projects=[
   {
     id:'patricia',
     title:'Patricia Homepage Recreation',
-    desc:'Homepage recreation of the Patricia fintech platform. Custom hero section with a responsive nav and mobile overlay built on top of the original Vue-compiled site assets.',
+    desc:'A practice build layering a custom hero, navigation, and responsive behavior over the original Patricia fintech homepage assets.',
     thumb:IMG+'Patricia.webp',
-    tags:[{l:'Landing Page',t:'tag-dev'},{l:'Practice Build',t:'tag-design'}],
-    stack:['HTML5','CSS3','JavaScript','Vue (original assets)'],
+    tags:[{l:'Practice Build',t:'tag-dev'},{l:'Fintech',t:'tag-design'}],
+    stack:['HTML5','CSS3','JavaScript'],
     featured:false,
     type:'landing',
     isPersonal:true,
-    overview:'A practice recreation of the Patricia fintech homepage. The project involved building a custom hero section, responsive navigation, and mobile overlay on top of the original site\'s compiled Vue assets.',
-    role:'Developer. Built the custom nav, mobile menu, hero section, and responsive CSS overlay on top of the existing compiled assets.',
+    overview:'A practice recreation exercise on the Patricia fintech homepage, focused on building a custom hero section, navigation, and mobile menu over the site\'s existing compiled assets.',
+    role:'Developer. Built the custom navigation, mobile menu, hero section, and responsive overrides.',
     built:[
-      'Custom hero section (.p-hero) with a headline, subtext, and two CTAs, replacing the original hero with a hand-written implementation',
-      'Custom responsive navigation with desktop layout and a mobile drawer overlay (mob-nav-head, mob-nav-body, mob-nav-foot structure) including section labels, links, and sign-in/download CTAs',
-      'Mobile nav JavaScript: hamburger toggle, close button, body scroll lock, and click-outside dismiss',
-      'Progress bar and back-to-top button behavior',
-      'Custom CSS (style.css, responsive.css, test.css) layered over the original compiled stylesheets to adjust layout and extend the mobile experience',
-      'Responsive overrides for grid and flex layout within the original Vue-compiled sections: refill, BTC, app, and footer grids all reconfigured for mobile via media queries'
+      'A custom hero section with headline, subtext, and CTAs',
+      'A custom responsive navigation with a mobile drawer overlay, including hamburger toggle, close behavior, and scroll lock',
+      'Responsive overrides applied on top of the original page sections for mobile layout'
     ],
-    stack_detail:'HTML5, CSS3, Vanilla JavaScript ES6+, Boxicons, Vue SSR-compiled assets (original site, not written by me)',
-    challenges:'The original site uses compiled Vue SSR output with scoped styles that cannot be modified directly. Layering custom CSS without breaking the existing compiled sections required careful specificity management and scoped overrides, avoiding class conflicts with the Vue-scoped attributes.',
-    outcome:'A live recreation demonstrating the ability to extend and customise an existing compiled frontend codebase, with a fully custom hero and navigation layer built over it.',
+    stack_detail:'HTML5, CSS3, JavaScript, Boxicons',
+    challenges:'Layering custom navigation and responsive behavior over an existing page without breaking its original styling required careful CSS specificity management to avoid conflicts.',
+    outcome:'A practice build demonstrating the ability to extend and adapt an existing frontend rather than only building from a blank page.',
     link:'https://blvklegend.github.io/Patricia/',
     github:'https://github.com/BlvkLegend/Patricia'
-  },
-  {
-    id:'ngsc-uiux',
-    title:'Nigeria Governance Scorecard UI/UX',
-    desc:'Four complete Figma prototype flows covering the NGSC platform across Taxpayer desktop/mobile and Agbado-Cruise desktop/mobile. Dual design language with distinct visual identity per mode.',
-    thumb:IMG+'NGSC2.webp',
-    tags:[{l:'UI/UX',t:'tag-design'},{l:'Civic Tech',t:'tag-mobile'}],
-    stack:['Figma','Design System','Prototyping','User Flows'],
-    featured:false,
-    type:'uiux',
-    isPersonal:false,
-    designObjective:'Design a civic evaluation platform that serves two distinct audiences with different registers: a formal Taxpayer audience and a culturally colloquial Agbado-Cruise audience, both interacting with the same underlying data and evaluation system.',
-    role:'Sole designer. Designed all four prototype flows, the visual language for each mode, and the shared component system.',
-    uxProcess:[
-      'Defined the two audience personas and their interaction expectations: the Taxpayer mode prioritises legibility, formal language, and institutional trust signals; the Agbado-Cruise mode uses bolder visuals, darker surfaces, and street-slang microcopy',
-      'Mapped information architecture: leader discovery, individual leader evaluation, side-by-side comparison, community pulse, and shareable scorecard as the five core flows',
-      'Designed each flow four times: Taxpayer desktop, Taxpayer mobile, Agbado-Cruise desktop, Agbado-Cruise mobile',
-      'Established a shared component library that accommodates both visual modes by swapping colour tokens, typography weights, and microcopy without restructuring the layout grid'
-    ],
-    visualDesign:'Taxpayer mode: light surfaces, serif display type, green accent, institutional grid layout. Agbado-Cruise mode: dark surfaces, bolder weight, vibrant accent colour, image-grid leader selection. The same evaluation cards, score components, and navigation structure underlie both modes with mode-specific token overrides.',
-    responsiveConsiderations:'Mobile layouts for both modes were designed as separate flows rather than simply scaled-down desktop versions. Leader discovery switches from list (Taxpayer mobile) to image grid (Agbado-Cruise mobile). Navigation collapses to a bottom-anchored or hamburger pattern depending on the mode.',
-    designDecisions:'The most deliberate decision was keeping the structural information identical across modes while permitting the visual and linguistic register to differ completely. This mirrors the coded implementation and demonstrated that a single data layer can serve two entirely different communication contexts.',
-    tools:['Figma','Auto Layout','Component variants','Design tokens','Prototype flows'],
-    outcome:'Four complete prototype flows delivering a cross-device experience that separates the civic platform\'s formal accountability function from a culturally resonant Nigerian street-vernacular interface.',
-    link:'https://www.figma.com/proto/xOoel2p6zlcG03TE7nE5F7?node-id=2304-248&starting-point-node-id=2304:248&locale=en'
-  },
-  {
-    id:'zeecakes-app',
-    title:'Zeecakes Mobile Ordering App UI',
-    desc:'Figma mobile app design for a bakery ordering experience. Category browsing, product detail, cake customization, and checkout flows. Designed for non-technical users with minimal friction.',
-    thumb:IMG+'Zeecakes app.webp',
-    tags:[{l:'UI/UX',t:'tag-design'},{l:'E-commerce',t:'tag-mobile'}],
-    stack:['Figma','User Flows','Prototyping'],
-    featured:false,
-    type:'uiux',
-    isPersonal:false,
-    designObjective:'Design a mobile ordering interface for ZeeCakes that allows customers to browse products, customize cake orders, and complete purchases without needing to call or message to place an order.',
-    role:'Sole designer.',
-    uxProcess:[
-      'Mapped the existing customer ordering journey: customers currently contact the bakery via WhatsApp or phone, describe their order, and arrange payment separately',
-      'Identified the core friction points: no visual product catalog, no way to specify customization details (size, flavour, message), no order confirmation',
-      'Designed the information architecture: Home, Categories, Product Detail with customization options, Cart, Checkout',
-      'Focused on reducing decision friction for non-technical users with clear product imagery, labeled options, and step-by-step checkout'
-    ],
-    visualDesign:'Warm, food-appropriate colour palette. Clear product photography emphasis. Large tap targets throughout for ease of use on mobile. Progress indicators on the checkout flow to communicate completion status.',
-    responsiveConsiderations:'Designed entirely for mobile. Navigation is bottom-anchored with iconographic labels. Product grids are two-column with adequate padding for thumb reach.',
-    designDecisions:'The customization screen was the most complex decision: cake orders require size selection, flavour, and a personal message. Rather than a long form, the screen uses segmented controls for size and flavour with a single text input for the message, reducing the number of visible inputs at any time.',
-    tools:['Figma','Auto Layout','Prototype flows','User flows'],
-    outcome:'A complete mobile ordering prototype covering the full customer journey from product discovery to checkout confirmation.',
-    link:'https://www.figma.com/proto/ai9OCoATT7WqWQ0dhLGepK/ZeeCakes-App?page-id=0%3A1&node-id=0-854'
-  },
+  }
+];
+
+const uxProjects=[
   {
     id:'eezee-transit',
     title:'Eezee Transit App UI',
@@ -941,19 +886,18 @@ const projects=[
     featured:false,
     type:'uiux',
     isPersonal:false,
-    designObjective:'Design a ride-hailing mobile application for Eezee Transit covering both the passenger-facing and driver-facing experiences, with a shared visual system across both surfaces.',
-    role:'Sole designer. Designed both passenger and driver flows, the shared component library, and the overall visual language.',
+    designObjective:'Design a ride-hailing mobile application covering both the passenger-facing and driver-facing experiences, with one shared visual system across both surfaces.',
+    role:'Sole designer. Designed both passenger and driver flows plus the shared component library.',
     uxProcess:[
-      'Mapped two distinct user journeys: passenger (booking, tracking, payment, history) and driver (receiving requests, navigation, trip management, earnings)',
-      'Identified shared components: map views, trip cards, notification patterns, profile screens, rating interactions',
-      'Structured screens by flow rather than by role to identify where the two experiences intersect and where they diverge',
-      'Designed end-to-end: onboarding, home, booking flow, live tracking, trip completion, rating, history, notifications, and settings'
+      'Mapped two journeys: passenger (booking, tracking, payment, history) and driver (requests, navigation, trip management, earnings)',
+      'Identified shared components across both flows: map views, trip cards, notifications, ratings',
+      'Designed end to end: onboarding, home, booking, live tracking, trip completion, history, notifications, settings'
     ],
-    visualDesign:'A cohesive design system shared across both the app and the accompanying website design. Consistent typography, colour tokens, and spacing scale ensured visual continuity whether the interface was rendered on the passenger app, driver app, or web.',
-    responsiveConsiderations:'All screens designed for mobile. Map-heavy screens (booking, live tracking) use a bottom-sheet pattern to expose controls without obscuring the map view. Driver-specific screens adapt information density: drivers need quick status reads at a glance.',
-    designDecisions:'Using a shared visual system across both the passenger and driver apps was a deliberate decision. It reduces the cognitive distance between the two surfaces for users who switch roles, and it simplifies the design system by relying on component variants rather than separate component libraries.',
+    visualDesign:'A single design system shared across the app and the accompanying website redesign, with consistent typography, color tokens, and spacing.',
+    responsiveConsiderations:'Map-heavy screens use a bottom-sheet pattern to expose controls without obscuring the map. Driver screens prioritize quick status reads over dense detail.',
+    designDecisions:'Sharing one visual system across passenger and driver apps was deliberate: it reduces the cognitive distance for users who switch roles and lets the design system rely on component variants instead of separate libraries.',
     tools:['Figma','Auto Layout','Component variants','Prototype flows'],
-    outcome:'A production-ready prototype covering end-to-end passenger and driver flows with a consistent visual language across the full product surface.',
+    outcome:'A production-ready prototype covering end-to-end passenger and driver flows with a consistent visual language across the full product.',
     link:'https://www.figma.com/proto/D5g0vdV0Lod1J0ha9UOf5p/Eezee-Transit-Plan-B?page-id=0%3A1&node-id=1632-9776'
   },
   {
@@ -966,42 +910,91 @@ const projects=[
     featured:false,
     type:'uiux',
     isPersonal:true,
-    designObjective:'Design a complete mobile banking UI that reduces interaction friction across core financial tasks while maintaining the trust signals expected of a financial product.',
+    designObjective:'A personal project: design a complete mobile banking UI that reduces interaction friction across core financial tasks while keeping the trust signals expected of a financial product.',
     role:'Sole designer.',
     uxProcess:[
-      'Mapped the complete banking user journey: onboarding, account creation, authentication (biometric/PIN), dashboard overview, transfer flow, transaction history, and card management',
-      'Analysed trust signal conventions in mobile banking: clear account balances, transaction timestamps and reference numbers, confirmation screens, masked sensitive data by default',
-      'Established an interaction pattern for each flow that minimises steps without removing necessary confirmation checkpoints (particularly for transfers)'
+      'Mapped the full banking journey: onboarding, authentication, dashboard, transfers, history, and card management',
+      'Studied trust-signal conventions in mobile banking: clear balances, timestamped transactions, confirmation screens, masked sensitive data by default',
+      'Designed each flow to minimize steps without removing necessary confirmation checkpoints, particularly for transfers'
     ],
-    visualDesign:'Conservative, trust-appropriate palette: dark navy primary, green accent for positive actions and balances, red reserved exclusively for errors and failed states. Typography at high contrast ratios throughout. Card management screens use a physical card metaphor with front/back states.',
-    responsiveConsiderations:'All screens are mobile-first. The dashboard adapts its information density based on account activity: empty states, partial states, and populated states are all designed explicitly.',
-    designDecisions:'Transfer flows include a named confirmation screen before submission that repeats the recipient name, account number, and amount in large text. This friction is intentional: in banking, the cost of a mis-sent transfer outweighs the cost of one extra tap.',
+    visualDesign:'A conservative, trust-appropriate palette (dark navy primary, green for positive actions, red reserved for errors) at high contrast throughout. Card screens use a physical card metaphor with front/back states.',
+    responsiveConsiderations:'All screens mobile-first. The dashboard adapts information density across empty, partial, and populated account states.',
+    designDecisions:'Transfer flows include a confirmation screen repeating the recipient name, account number, and amount before submission. That extra tap is intentional: in banking, the cost of a mis-sent transfer outweighs the cost of one more confirmation step.',
     tools:['Figma','Auto Layout','Component variants','Prototyping'],
-    outcome:'A complete banking prototype covering complex fintech flows across onboarding, authentication, transfers, history, and card management.',
+    outcome:'A complete banking prototype covering onboarding, authentication, transfers, history, and card management.',
     link:'https://www.figma.com/proto/gxlTDRAwEcdni0OIh0rOB8/Veegil-Bank-App?page-id=2%3A20347&node-id=1013-24863'
+  },
+  {
+    id:'ngsc-uiux',
+    title:'Nigeria Governance Scorecard UI/UX',
+    desc:'Four complete Figma prototype flows covering the NGSC platform across Taxpayer desktop/mobile and Agbado-Cruise desktop/mobile. Dual design language with a distinct visual identity per mode.',
+    thumb:IMG+'NGSC2.webp',
+    tags:[{l:'UI/UX',t:'tag-design'},{l:'Civic Tech',t:'tag-mobile'}],
+    stack:['Figma','Design System','Prototyping'],
+    featured:false,
+    type:'uiux',
+    isPersonal:false,
+    designObjective:'Design a civic evaluation platform that serves two audiences with different registers, a formal Taxpayer audience and a colloquial Agbado-Cruise audience, both working from the same underlying data.',
+    role:'Sole designer. Designed all four prototype flows and the shared component system.',
+    uxProcess:[
+      'Defined the two audience personas and their differing interaction expectations',
+      'Mapped the core flows: leader discovery, evaluation, comparison, community pulse, shareable scorecard',
+      'Designed each flow twice per device: Taxpayer desktop/mobile, Agbado-Cruise desktop/mobile',
+      'Built a shared component library that swaps color tokens, type weight, and microcopy across modes without restructuring layout'
+    ],
+    visualDesign:'Taxpayer mode: light surfaces, serif display type, institutional grid. Agbado-Cruise mode: dark surfaces, bolder weight, image-grid selection. The same evaluation cards and score components underlie both.',
+    responsiveConsiderations:'Mobile layouts were designed as separate flows rather than scaled-down desktop versions; leader discovery switches from list to image grid depending on mode.',
+    designDecisions:'The deliberate choice was keeping the structural information identical across modes while letting the visual and linguistic register differ completely, mirroring how the coded implementation works.',
+    tools:['Figma','Auto Layout','Component variants','Design tokens'],
+    outcome:'Four complete prototype flows delivering a cross-device experience that separates a formal accountability function from a culturally resonant interface.',
+    link:'https://www.figma.com/proto/xOoel2p6zlcG03TE7nE5F7?node-id=2304-248&starting-point-node-id=2304:248&locale=en'
+  },
+  {
+    id:'zeecakes-app',
+    title:'Zeecakes Mobile Ordering App UI',
+    desc:'Figma mobile app design for a bakery ordering experience. Category browsing, product detail, cake customization, and checkout flows for non-technical users.',
+    thumb:IMG+'Zeecakes app.webp',
+    tags:[{l:'UI/UX',t:'tag-design'},{l:'E-commerce',t:'tag-mobile'}],
+    stack:['Figma','User Flows','Prototyping'],
+    featured:false,
+    type:'uiux',
+    isPersonal:false,
+    designObjective:'Design a mobile ordering interface letting ZeeCakes customers browse products, customize cake orders, and check out without calling or messaging to place an order.',
+    role:'Sole designer.',
+    uxProcess:[
+      'Mapped the existing ordering journey: customers contact the bakery via WhatsApp or phone and arrange payment separately',
+      'Identified the friction points: no visual catalog, no structured way to specify customization, no order confirmation',
+      'Designed the flow: Home, Categories, Product Detail with customization, Cart, Checkout'
+    ],
+    visualDesign:'A warm, food-appropriate palette with clear product photography and large tap targets throughout.',
+    responsiveConsiderations:'Designed for mobile with a bottom-anchored navigation and two-column product grids sized for thumb reach.',
+    designDecisions:'The customization screen uses segmented controls for size and flavor plus a single text field for a personal message, rather than a long form, keeping the number of visible inputs low at any one time.',
+    tools:['Figma','Auto Layout','Prototype flows'],
+    outcome:'A complete mobile ordering prototype covering the full customer journey from product discovery to checkout confirmation.',
+    link:'https://www.figma.com/proto/ai9OCoATT7WqWQ0dhLGepK/ZeeCakes-App?page-id=0%3A1&node-id=0-854'
   },
   {
     id:'mealfusion-app',
     title:'MealFusion App UI',
-    desc:'Mobile app Figma design for ingredient-based recipe generation and meal planning. Onboarding, ingredient selection, recipe generation, and personalised recommendation flows.',
+    desc:'Mobile app Figma design for ingredient-based recipe generation and meal planning. Onboarding, ingredient selection, recipe generation, and personalized recommendation flows.',
     thumb:IMG+'MealFusion.webp',
-    tags:[{l:'UI/UX',t:'tag-design'},{l:'Personal',t:'tag-personal'}],
+    tags:[{l:'UI/UX',t:'tag-design'},{l:'Food Tech',t:'tag-mobile'}],
     stack:['Figma','User Flows','Prototyping'],
     featured:false,
     type:'uiux',
     isPersonal:true,
-    designObjective:'Design a meal planning app that generates recipe suggestions from ingredients the user already has, reducing food waste and decision fatigue around cooking.',
+    designObjective:'A personal project: design a meal planning app that generates recipe suggestions from ingredients the user already has, reducing food waste and decision fatigue.',
     role:'Sole designer.',
     uxProcess:[
-      'Defined the primary user problem: users have ingredients at home but lack the knowledge or inspiration to know what to cook with them',
-      'Mapped the core flow: onboarding (dietary preferences, household size), ingredient input, recipe generation, recipe detail, save and plan',
-      'Designed a preference-setting flow that collects personalisation data at onboarding without requiring account creation'
+      'Defined the core problem: people have ingredients at home but lack inspiration for what to cook with them',
+      'Mapped the flow: onboarding (dietary preferences, household size), ingredient input, recipe generation, recipe detail, save and plan',
+      'Designed preference-setting at onboarding without requiring account creation'
     ],
-    visualDesign:'Warm, food-appropriate palette with earthy greens and amber accents. Food photography is a primary visual element throughout. Recipe cards use horizontal thumbnail layouts to show multiple options without deep scrolling.',
-    responsiveConsiderations:'Designed for mobile. Ingredient selection uses a tag-input pattern optimised for phone keyboards. Generated recipe results use a card stack pattern for fast browsing.',
-    designDecisions:'The ingredient input screen uses a tag-based multi-select rather than a search-and-confirm flow. Users can type and add multiple ingredients quickly before triggering generation, matching the mental model of glancing at what\'s in the fridge.',
+    visualDesign:'A warm palette with earthy greens and amber accents, and food photography as a primary visual element. Recipe cards use horizontal thumbnail layouts.',
+    responsiveConsiderations:'Designed for mobile. Ingredient selection uses a tag-input pattern suited to phone keyboards.',
+    designDecisions:'The ingredient input uses tag-based multi-select rather than search-and-confirm, matching the mental model of glancing at what\'s in the fridge and adding several items quickly.',
     tools:['Figma','Auto Layout','Prototype flows'],
-    outcome:'A complete product UI system supporting intuitive meal discovery across onboarding, ingredient input, recipe generation, and meal planning.',
+    outcome:'A complete product UI system supporting meal discovery across onboarding, ingredient input, recipe generation, and planning.',
     link:'https://www.figma.com/proto/2UErhNLYakZqhWSBUFxhsd/MealFusion?page-id=209%3A12&node-id=209-1283'
   },
   {
@@ -1009,31 +1002,33 @@ const projects=[
     title:'MealFusion Website',
     desc:'Figma landing page design for the MealFusion meal-planning product. Mobile-first, conversion-focused structure with ingredient-to-meal storytelling and a signup CTA.',
     thumb:IMG+'Meal Fusion.webp',
-    tags:[{l:'UI/UX',t:'tag-design'},{l:'Personal',t:'tag-personal'}],
+    tags:[{l:'UI/UX',t:'tag-design'},{l:'Food Tech',t:'tag-mobile'}],
     stack:['Figma','Landing Page Design','Prototyping'],
     featured:false,
     type:'uiux',
     isPersonal:true,
-    designObjective:'Design a marketing landing page for MealFusion that communicates the product\'s core value proposition, moves visitors from awareness to signup intent, and supports a mobile-first audience.',
+    designObjective:'A personal project: design a marketing landing page for MealFusion that communicates the product\'s value proposition and moves visitors toward signup intent.',
     role:'Sole designer.',
     uxProcess:[
-      'Defined the page\'s single job: convert visitors into app signup intent',
-      'Structured content in narrative sequence: problem statement, product explanation, how it works, social proof, CTA',
-      'Applied conversion-focused hierarchy: primary CTA above the fold, secondary CTA at page close, no competing navigation destinations'
+      'Defined the page\'s single job: convert visitors into signup intent',
+      'Structured content in sequence: problem statement, product explanation, how it works, social proof, CTA',
+      'Applied conversion-focused hierarchy: primary CTA above the fold, no competing navigation destinations'
     ],
-    visualDesign:'Consistent with the MealFusion app visual language. Warm palette, food photography, earthy accent. Sections alternate between light and slightly tinted backgrounds to create rhythm without introducing new colours.',
-    responsiveConsiderations:'Designed mobile-first. Desktop layout expands the grid to two-column where appropriate but the page structure and section order is identical across breakpoints.',
-    designDecisions:'Chose to show the ingredient input and recipe output side by side in the hero as a literal demonstration of the product concept, rather than using abstract marketing copy. The strongest pitch for a meal app is showing someone what it produces.',
+    visualDesign:'Consistent with the MealFusion app: warm palette, food photography, earthy accents, alternating section backgrounds for rhythm.',
+    responsiveConsiderations:'Designed mobile-first; the desktop layout expands to two columns where useful but keeps the same section order.',
+    designDecisions:'Chose to show ingredient input and recipe output side by side in the hero as a literal demonstration of the product, rather than relying on abstract marketing copy.',
     tools:['Figma','Auto Layout','Prototyping'],
-    outcome:'A responsive marketing landing page design focused on product clarity, narrative flow, and signup conversion.',
+    outcome:'A responsive marketing landing page focused on product clarity, narrative flow, and signup conversion.',
     link:'https://www.figma.com/proto/onTkhauiRQBmaTvAQpPSx6/MealFusion-Landing-Page?page-id=1%3A1263&node-id=429-13186'
   }
 ];
 
+const projects = devProjects.concat(uxProjects);
+
 /* ── RENDER PROJECTS ── */
-function renderProjects(){
-  var grid=document.getElementById('projectsGrid');
-  projects.forEach(function(p,i){
+function renderProjectGrid(list, gridId){
+  var grid=document.getElementById(gridId);
+  list.forEach(function(p,i){
     var card=document.createElement('div');
     var delay=(i%3)*0.07;
     card.className='project-card scene-el'+(p.featured?' featured':'');
@@ -1320,7 +1315,8 @@ function heroEntrance(){
 }
 buildCodeReveal();
 heroEntrance();
-renderProjects();
+renderProjectGrid(devProjects,'projectsGridDev');
+renderProjectGrid(uxProjects,'projectsGridUX');
 </script>
 </body>
 </html>
